@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ./src/
+      dockerfile: Dockerfile
+    command: bash -c "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py runserver  0.0.0.0:8000"
+#    depends_on:
+#      - neo4jdb
+    volumes:
+      - ./src:/NeoApp
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+#    environment:
+#    - NEO4J_BOLT_URL=bolt://neo4j:neo4jpass@neo4jdb:7687
